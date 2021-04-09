@@ -24998,9 +24998,10 @@
             1. If _parameters_ is a List of errors, throw a *SyntaxError* exception.
             1. Let _body_ be ParseText(! StringToCodePoints(_bodyString_), _bodySym_).
             1. If _body_ is a List of errors, throw a *SyntaxError* exception.
+            1. NOTE: The parameters and body are parsed separately to ensure that each is valid alone. For example, `new Function("/*", "*/ ) {")` is not legal.
             1. Let _expr_ be ParseText(_sourceText_, _exprSym_).
             1. If _expr_ is a List of errors, throw a *SyntaxError* exception.
-            1. NOTE: If the above two steps are reached, _sourceText_ is guaranteed to match _exprSym_. The purpose of these steps is to enforce any Early Error rules which apply to _exprSym_ directly.
+            1. NOTE: If the above two steps are reached, _sourceText_ must match _exprSym_ (although the reverse implication does not hold). The purpose of these steps is to enforce any Early Error rules which apply to _exprSym_ directly.
             1. Let _proto_ be ? GetPrototypeFromConstructor(_newTarget_, _fallbackProto_).
             1. Let _realmF_ be the current Realm Record.
             1. Let _scope_ be _realmF_.[[GlobalEnv]].
